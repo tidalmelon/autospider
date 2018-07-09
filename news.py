@@ -15,12 +15,16 @@ class NewsSpider(scrapy.Spider):
     start_urls = ['http://www.bjnews.com.cn/news/?page=1']
 
     def __init__(self):
+        # 自动翻页 
         self.listurlextractor = ListUrlExtractor()
+        # 自动发现详情页
         self.detailextractor = DetailUrlExtractor()
+        # 正文抽取
         self.articleextractor = ArticleExtractor()
 
         #  , then mapping
         seed = 'http://www.bjnews.com.cn/news/?page=1'
+        # 训练模型
         self.model = self.detailextractor.train_model_seed(seed, "utf-8")
         print 'train model success'
 
